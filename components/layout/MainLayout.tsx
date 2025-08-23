@@ -57,54 +57,40 @@ export function MainLayout() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Header onTabChange={handleTabChange} />
       
-      <div className="flex h-[calc(100vh-120px)]">
+      <div className="app-layout">
         {/* Email List - Left Panel */}
-        <div className={`${showEmailDetail && isMobile ? 'hidden' : 'w-full lg:w-1/3 xl:w-1/4'} border-r border-gray-200 dark:border-gray-700 transition-all duration-300`}>
+        <div className={`${showEmailDetail && isMobile ? 'hidden' : ''} border-r border-gray-200 dark:border-gray-700 transition-all duration-300`}> 
           <EmailList
             onEmailSelect={handleEmailSelect}
             selectedEmailId={selectedEmail?.id}
           />
         </div>
 
-        {/* Main Content Area */}
-        <div className="flex-1 flex">
-          {/* Email Detail - Middle Panel (when email is selected) */}
-          {showEmailDetail && selectedEmail && (
+        {/* Email Detail - Middle Panel */}
+        <div className="transition-all duration-300 border-r border-gray-200 dark:border-gray-700">
+          {/* When on mobile the detail is shown as overlay elsewhere; here we render for larger screens */}
+          {!isMobile && showEmailDetail && selectedEmail && (
             <motion.div
-              className={`${isMobile ? 'fixed inset-0 z-50' : 'w-full lg:w-1/2 xl:w-2/5'} border-r border-gray-200 dark:border-gray-700`}
-              initial={{ opacity: 0, x: isMobile ? 0 : 20 }}
+              className="h-full"
+              initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: isMobile ? 0 : -20 }}
+              exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
             >
-              {isMobile && (
-                <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4">
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={handleBackToEmails}
-                      className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-                      aria-label="Back to emails"
-                    >
-                      ←
-                    </button>
-                    <h2 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
-                      {selectedEmail.subject}
-                    </h2>
-                  </div>
-                </div>
-              )}
-              
-              <EmailDetail
-                email={selectedEmail}
-                onClose={isMobile ? handleCloseEmailDetail : undefined}
-              />
+              <EmailDetail email={selectedEmail} />
             </motion.div>
           )}
+          {/* If no email selected, show a placeholder or first email when available */}
+          {!showEmailDetail && (
+            <div className="p-6">
+              <p className="text-sm text-[var(--text-muted)]">Select an email to view details</p>
+            </div>
+          )}
+        </div>
 
-          {/* Property Details - Right Panel */}
-          <div className={`${showEmailDetail ? 'hidden xl:block' : ''} flex-1 transition-all duration-300`}>
-            <PropertyDetails propertyId={activePropertyId} />
-          </div>
+        {/* Property Details - Right Panel */}
+        <div className="transition-all duration-300">
+          <PropertyDetails propertyId={activePropertyId} />
         </div>
       </div>
 

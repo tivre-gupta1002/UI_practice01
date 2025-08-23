@@ -58,11 +58,11 @@ export function PropertyDetails({ propertyId }: PropertyDetailsProps) {
   }
 
   return (
-    <div className="flex-1 bg-white dark:bg-gray-800 overflow-y-auto">
-      <div className="p-6">
+    <div className="flex-1 bg-[var(--color-bg)] overflow-y-auto">
+      <div className="p-[var(--space-24)]">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <h2 className="text-[var(--fs-20)] font-semibold text-[var(--text)]">
             Property Details
           </h2>
           <div className="flex items-center gap-2">
@@ -86,11 +86,11 @@ export function PropertyDetails({ propertyId }: PropertyDetailsProps) {
         </div>
 
         {/* Property Address */}
-        <Card className="mb-6">
+        <Card className="mb-[var(--space-24)]">
           <div className="space-y-3">
             <div className="flex items-start justify-between">
               <div>
-                <h3 className="font-medium text-gray-900 dark:text-white">
+                <h3 className="font-medium text-[var(--text)] text-[var(--fs-16)]">
                   {property.address}, {property.city}, {property.state}
                 </h3>
                 {showAddresses && (
@@ -111,7 +111,7 @@ export function PropertyDetails({ propertyId }: PropertyDetailsProps) {
               </div>
               <button
                 onClick={() => setShowAddresses(!showAddresses)}
-                className="text-primary-600 hover:text-primary-700 text-sm font-medium"
+                className="text-[var(--color-primary)] hover:text-[var(--color-primary-500)] text-[var(--fs-14)] font-medium"
               >
                 {showAddresses ? 'Show less' : 'Show more'}
               </button>
@@ -121,15 +121,15 @@ export function PropertyDetails({ propertyId }: PropertyDetailsProps) {
 
         {/* Alert Banner */}
         <motion.div
-          className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6"
+          className="bg-[rgba(219,184,131,0.12)] border border-[var(--color-warn)] rounded-[var(--radius-md)] p-[var(--space-16)] mb-[var(--space-24)]"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
           <div className="flex items-start gap-3">
-            <AlertTriangle className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+            <AlertTriangle className="h-5 w-5 text-[var(--color-warn)] mt-0.5 flex-shrink-0" />
             <div>
-              <p className="text-sm text-red-800 dark:text-red-200 font-medium">
+              <p className="text-[var(--fs-14)] text-[var(--color-warn)] font-medium">
                 This is a City of Newark file, you may have issues retrieving the tax data in a timely manner.
               </p>
             </div>
@@ -137,16 +137,16 @@ export function PropertyDetails({ propertyId }: PropertyDetailsProps) {
         </motion.div>
 
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-1 mb-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center gap-1 mb-[var(--space-24)] border-b border-[var(--color-border)]">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`
-                px-4 py-2 text-sm font-medium transition-colors border-b-2
+                px-[var(--space-16)] py-[var(--space-8)] text-[var(--fs-14)] font-medium transition-colors border-b-2
                 ${activeTab === tab
-                  ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                  : 'border-transparent text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200'
+                  ? 'border-[var(--color-primary)] text-[var(--color-primary)]'
+                  : 'border-transparent text-[var(--color-muted-600)] hover:text-[var(--text)]'
                 }
               `}
             >

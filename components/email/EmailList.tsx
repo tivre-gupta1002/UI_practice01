@@ -111,53 +111,52 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
   }
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+    <div className="flex flex-col h-full bg-[var(--color-surface)] border-r border-[var(--color-border)] min-w-[var(--sidebar-w)] max-w-[var(--sidebar-w)]">
       {/* Header */}
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            {mockFilters.emailCategories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.label)}
-                className={`
-                  px-3 py-1.5 rounded-lg text-sm font-medium transition-colors
-                  flex items-center gap-2
-                  ${activeCategory === category.label
-                    ? 'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300'
-                    : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200'
-                  }
-                `}
-              >
-                {category.icon && <span>{category.icon}</span>}
-                {category.label}
-                {category.count && (
-                  <span className="ml-2 text-xs opacity-75">{category.count}</span>
-                )}
-              </button>
-            ))}
-          </div>
+      <div className="p-[var(--space-24)] border-b border-[var(--color-border)]">
+        <div className="flex items-center gap-[var(--space-16)] mb-[var(--space-16)]">
+          {mockFilters.emailCategories.map((category: { id: string; label: string; isSelected?: boolean; count?: number; value?: string; icon?: string }) => (
+            <button
+              key={category.id}
+              onClick={() => setActiveCategory(category.label)}
+              className={`
+                px-[var(--space-12)] py-[var(--space-6)] rounded-[var(--radius-md)] text-[var(--fs-14)] font-semibold transition-colors
+                flex items-center gap-[var(--space-8)]
+                ${activeCategory === category.label
+                  ? 'bg-[rgba(56,124,232,0.08)] text-[var(--color-primary)] border-l-2 border-[var(--color-primary)]'
+                  : 'text-[var(--color-muted-600)] hover:text-[var(--color-primary)] hover:bg-[var(--color-surface-2)]'
+                }
+              `}
+              style={activeCategory === category.label ? { borderLeftWidth: 2 } : {}}
+            >
+              {category.icon && <span>{category.icon}</span>}
+              {category.label}
+              {category.count && (
+                <span className="ml-2 text-[var(--fs-12)] opacity-75">{category.count}</span>
+              )}
+            </button>
+          ))}
         </div>
 
-        <div className="flex items-center gap-2 mb-4">
+        <div className="flex items-center gap-[var(--space-8)] mb-[var(--space-16)]">
           <Input
             placeholder="Search email"
-            leftIcon={<Search className="h-4 w-4" />}
+            leftIcon={<Search className="h-4 w-4 text-[var(--color-muted-500)]" />}
             variant="search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1"
+            className="flex-1 h-9 px-[var(--space-12)] text-[var(--fs-14)] border border-[var(--color-border)] rounded-[var(--radius-sm)] focus:ring-2 focus:ring-[var(--color-primary)]"
           />
           <Button
             variant="outline"
             size="sm"
             onClick={() => setShowFilters(!showFilters)}
-            className="px-3"
+            className="px-[var(--space-12)]"
           >
             <Filter className="h-4 w-4 mr-1" />
             Filter
           </Button>
-          <Button size="sm" className="px-3">
+          <Button size="sm" className="px-[var(--space-12)] bg-[var(--color-primary)] text-[var(--text-inverse)] hover:bg-[var(--color-primary-500)]">
             <Mail className="h-4 w-4 mr-1" />
             New Email
           </Button>
@@ -222,21 +221,21 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
                 onClick={() => handleEmailClick(email)}
                 onContextMenu={(e) => handleContextMenu(e, email.id)}
                 className={`
-                  p-4 border-b border-gray-100 dark:border-gray-700 cursor-pointer transition-colors
-                  hover:bg-gray-50 dark:hover:bg-gray-700
-                  ${selectedEmailId === email.id ? 'bg-primary-50 dark:bg-primary-900/20' : ''}
+                  flex flex-col gap-1 px-[var(--space-16)] py-[var(--space-12)] border-b border-[var(--color-border)] cursor-pointer transition-colors
+                  hover:bg-[var(--color-surface-2)]
+                  ${selectedEmailId === email.id ? 'bg-[rgba(56,124,232,0.08)] border-l-2 border-[var(--color-primary)]' : ''}
                 `}
+                style={selectedEmailId === email.id ? { borderLeftWidth: 2 } : {}}
               >
-                <div className="flex items-start gap-3">
+                <div className="flex items-center gap-[var(--space-12)]">
                   {/* Avatar */}
-                  <div className="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-700 dark:text-primary-300 text-sm font-medium flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-[var(--color-primary-300)] flex items-center justify-center text-[var(--color-primary)] text-[var(--fs-14)] font-semibold flex-shrink-0">
                     {getInitials(email.sender)}
                   </div>
-
                   {/* Email Content */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-medium text-gray-900 dark:text-white truncate">
+                    <div className="flex items-center gap-[var(--space-8)] mb-0.5">
+                      <span className="font-semibold text-[var(--text)] truncate text-[var(--fs-14)]">
                         {email.sender}
                       </span>
                       {email.isEncrypted && (
@@ -249,51 +248,48 @@ export function EmailList({ onEmailSelect, selectedEmailId }: EmailListProps) {
                         <Star className="h-3 w-3 text-yellow-500 fill-current" />
                       )}
                       {email.hasAttachments && (
-                        <Paperclip className="h-3 w-3 text-gray-400" />
+                        <Paperclip className="h-3 w-3 text-[var(--color-muted-500)]" />
                       )}
                     </div>
-                    
-                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-1 truncate">
+                    <div className="text-[var(--fs-13)] text-[var(--color-muted-600)] mb-0.5 truncate">
                       {email.subject}
                     </div>
-                    
-                    <div className="text-xs text-gray-500 dark:text-gray-500 mb-2 line-clamp-2">
+                    <div className="text-[var(--fs-12)] text-[var(--color-muted-500)] mb-1 line-clamp-2">
                       {email.content}
                     </div>
-
                     {/* Email Actions */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-[var(--space-8)]">
                       <button 
-                        className="p-1 hover:bg-gray-100 dark:hover:bg-gray-600 rounded"
+                        className="p-1 hover:bg-[var(--color-surface-2)] rounded-[var(--radius-sm)]"
                         onClick={(e) => {
                           e.stopPropagation()
                           handleEmailAction('star', email)
                         }}
                         title={email.isStarred ? 'Remove star' : 'Star email'}
                       >
-                        <Star className={`h-3 w-3 ${email.isStarred ? 'text-yellow-500 fill-current' : 'text-gray-400'}`} />
+                        <Star className={`h-3 w-3 ${email.isStarred ? 'text-yellow-500 fill-current' : 'text-[var(--color-muted-500)]'}`} />
                       </button>
                       <button 
-                        className="p-1 hover:bg-gray-100 dark:hover:bg-gray-600 rounded"
+                        className="p-1 hover:bg-[var(--color-surface-2)] rounded-[var(--radius-sm)]"
                         onClick={(e) => {
                           e.stopPropagation()
                           handleEmailAction('read', email)
                         }}
                         title={email.isRead ? 'Mark as unread' : 'Mark as read'}
                       >
-                        {email.isRead ? <EyeOff className="h-3 w-3 text-gray-400" /> : <Eye className="h-3 w-3 text-gray-400" />}
+                        {email.isRead ? <EyeOff className="h-3 w-3 text-[var(--color-muted-500)]" /> : <Eye className="h-3 w-3 text-[var(--color-muted-500)]" />}
                       </button>
                       <button 
-                        className="p-1 hover:bg-gray-100 dark:hover:bg-gray-600 rounded"
+                        className="p-1 hover:bg-[var(--color-surface-2)] rounded-[var(--radius-sm)]"
                         onClick={(e) => {
                           e.stopPropagation()
                           setShowContextMenu(email.id)
                         }}
                         title="More actions"
                       >
-                        <MoreHorizontal className="h-3 w-3 text-gray-400" />
+                        <MoreHorizontal className="h-3 w-3 text-[var(--color-muted-500)]" />
                       </button>
-                      <span className="text-xs text-gray-400 ml-auto">
+                      <span className="text-[var(--fs-12)] text-[var(--color-muted-400)] ml-auto">
                         {email.timestamp}
                       </span>
                     </div>

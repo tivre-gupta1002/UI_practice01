@@ -96,22 +96,22 @@ export function EmailDetail({ email, onClose }: EmailDetailProps) {
 
   return (
     <motion.div
-      className="flex-1 bg-white dark:bg-gray-800 overflow-y-auto relative"
+      className="flex-1 bg-[var(--color-bg)] overflow-y-auto relative"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="p-6">
+      <div className="p-[var(--space-24)]">
         {/* Email Header */}
         <div className="mb-6">
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-start gap-3">
-              <div className="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-700 dark:text-primary-300 text-lg font-medium">
+              <div className="w-12 h-12 rounded-full bg-[var(--color-primary-300)] flex items-center justify-center text-[var(--color-primary)] text-lg font-medium">
                 {getInitials(email.sender)}
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-[var(--fs-18)] font-semibold text-[var(--text)]">
                     {email.sender}
                   </h2>
                   {email.isEncrypted && (
@@ -124,7 +124,7 @@ export function EmailDetail({ email, onClose }: EmailDetailProps) {
                     <Star className="h-4 w-4 text-yellow-500 fill-current" />
                   )}
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-[var(--fs-14)] text-[var(--text-muted)]">
                   To: {email.recipient}
                 </p>
                 {email.cc && email.cc.length > 0 && (
@@ -132,7 +132,7 @@ export function EmailDetail({ email, onClose }: EmailDetailProps) {
                     CC: {email.cc.join(', ')}
                   </p>
                 )}
-                <div className="flex items-center gap-2 mt-2 text-xs text-gray-500 dark:text-gray-500">
+                <div className="flex items-center gap-2 mt-[var(--space-6)] text-[var(--fs-12)] text-[var(--color-muted-500)]">
                   <Clock className="h-3 w-3" />
                   {email.timestamp}
                 </div>
@@ -144,7 +144,7 @@ export function EmailDetail({ email, onClose }: EmailDetailProps) {
                 variant="ghost"
                 size="sm"
                 onClick={() => handleEmailAction('star')}
-                className={`p-2 ${isStarred ? 'text-yellow-500' : 'text-gray-400'}`}
+                className={`p-2 ${isStarred ? 'text-yellow-500' : 'text-[var(--color-muted-500)]'}`}
                 title={isStarred ? 'Remove star' : 'Star email'}
               >
                 <Star className={`h-4 w-4 ${isStarred ? 'fill-current' : ''}`} />
@@ -184,16 +184,16 @@ export function EmailDetail({ email, onClose }: EmailDetailProps) {
             </div>
           </div>
 
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+          <h3 className="text-[var(--fs-20)] font-semibold text-[var(--text)] mb-[var(--space-16)]">
             {email.subject}
           </h3>
         </div>
 
         {/* Email Content */}
-        <div className="mb-6">
-          <div className="prose dark:prose-invert max-w-none">
+        <div className="mb-[var(--space-24)]">
+          <div className="prose max-w-none">
             <div 
-              className="text-gray-700 dark:text-gray-300 leading-relaxed"
+              className="text-[var(--text)] leading-[var(--lh-relaxed)]"
               dangerouslySetInnerHTML={{ __html: parseContent(email.content) }}
             />
           </div>
@@ -205,21 +205,21 @@ export function EmailDetail({ email, onClose }: EmailDetailProps) {
             <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
               Attachments ({email.attachments.length})
             </h4>
-            <div className="space-y-2">
+            <div className="space-y-[var(--space-8)]">
               {email.attachments.map((attachment) => (
                 <motion.div
                   key={attachment.id}
-                  className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg"
+                  className="flex items-center justify-between p-[var(--space-12)] bg-[var(--color-surface)] rounded-[var(--radius-md)]"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <div className="flex items-center gap-3">
-                    <Paperclip className="h-4 w-4 text-gray-400" />
+                  <div className="flex items-center gap-[var(--space-12)]">
+                    <Paperclip className="h-4 w-4 text-[var(--color-muted-500)]" />
                     <div>
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">
+                      <p className="text-[var(--fs-14)] font-medium text-[var(--text)]">
                         {attachment.name}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-[var(--fs-12)] text-[var(--color-muted-500)]">
                         {attachment.size} • {attachment.mimeType || attachment.type}
                       </p>
                     </div>
@@ -228,7 +228,7 @@ export function EmailDetail({ email, onClose }: EmailDetailProps) {
                     variant="outline"
                     size="sm"
                     onClick={() => handleAttachmentDownload(attachment)}
-                    className="px-3"
+                    className="px-[var(--space-12)]"
                   >
                     <Download className="h-3 w-3 mr-1" />
                     Download

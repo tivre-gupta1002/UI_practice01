@@ -29,18 +29,24 @@ A comprehensive, production-ready front-end application for legal property manag
 ## 🛠 **Technology Stack**
 
 ### **Frontend Framework**
-- **React 18** with TypeScript for type safety and maintainability
-- **Next.js 14** with App Router for optimal performance and SEO
+### **Frontend Framework**
+- **React 19** with TypeScript for type safety and maintainability
+- **Next.js 15** with App Router for optimal performance and SEO
 - **Tailwind CSS** with custom design system and utility classes
 
-### **UI & Animation**
-- **Framer Motion** for smooth, performant animations
+### **Prerequisites**
+- Node.js 18.0.0 or higher
+- npm 8.0.0 or higher
+- On Windows: PowerShell script execution may be restricted. If you see an error like `npm.ps1 cannot be loaded because running scripts is disabled`, run PowerShell as Administrator and execute:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+```
+This temporarily allows npm scripts for the current session.
 - **Lucide React** for consistent, scalable iconography
 - **Custom Component Library** with atomic design principles
-
-### **Development Tools**
-- **ESLint + Prettier** for code quality and formatting
-- **Jest + React Testing Library** for comprehensive testing
+### **Available Scripts**
+ - npm run type-check       # Run TypeScript type checking
 - **TypeScript** for type safety and developer experience
 - **PostCSS** with Autoprefixer for CSS processing
 

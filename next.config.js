@@ -14,7 +14,8 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  swcMinify: true,
+  // Next 15 manages SWC minification and compression
+  // remove unsupported keys to avoid invalid config warnings
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,

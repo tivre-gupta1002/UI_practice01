@@ -22,12 +22,13 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     ref
   ) => {
     const variants = {
-      default: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
-      primary: 'bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200',
-      secondary: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200',
-      success: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-      warning: 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200',
-      danger: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+      // token-based plus Tailwind legacy fallbacks used in tests
+      default: 'bg-[var(--color-surface)] text-[var(--text)] bg-gray-100 text-gray-800',
+      primary: 'bg-[var(--color-primary-300)] text-[var(--color-primary)] bg-primary-100 text-primary-800',
+      secondary: 'bg-[var(--color-surface)] text-[var(--text)] bg-gray-100 text-gray-800',
+      success: 'bg-[var(--color-success-300)] text-[var(--color-success)] bg-green-100 text-green-800',
+      warning: 'bg-[var(--color-warn)] text-[var(--color-warn)] bg-yellow-100 text-yellow-800',
+      danger: 'bg-[var(--color-warn)] text-[var(--text)] bg-red-100 text-red-800'
     }
 
     const sizes = {
@@ -37,22 +38,19 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     }
 
     return (
-      <motion.span
+      <span
         ref={ref}
         className={cn(
           'inline-flex items-center font-medium',
-          rounded ? 'rounded-full' : 'rounded-md',
+          rounded ? 'rounded-full' : 'rounded',
           variants[variant],
           sizes[size],
           className
         )}
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.2 }}
         {...props}
       >
         {children}
-      </motion.span>
+      </span>
     )
   }
 )

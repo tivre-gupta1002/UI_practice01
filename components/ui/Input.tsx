@@ -42,21 +42,20 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               {leftIcon}
             </div>
           )}
-          <motion.input
+      <input
             ref={ref}
             id={inputId}
             className={cn(
-              'w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg transition-all duration-200',
-              'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent',
-              'dark:bg-gray-700 dark:text-white',
-              'placeholder-gray-400 dark:placeholder-gray-500',
-              variant === 'search' && 'pl-10 pr-4',
-              leftIcon && 'pl-10',
-              rightIcon && 'pr-10',
-              error && 'border-red-500 focus:ring-red-500',
-              className
+        'w-full px-3 py-2 border border-gray-300 rounded-[var(--radius-sm)] transition-all duration-200',
+        'focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-300)] focus:border-transparent',
+        'bg-[var(--color-bg)] text-[var(--text)]',
+        'placeholder-[var(--color-muted-500)]',
+        variant === 'search' && 'pl-10 pr-4',
+        leftIcon && 'pl-10',
+        rightIcon && 'pr-10',
+        error && 'border-red-500 focus:ring-red-500 text-red-600',
+        className
             )}
-            whileFocus={{ scale: 1.01 }}
             {...props}
           />
           {rightIcon && (

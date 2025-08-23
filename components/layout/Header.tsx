@@ -101,76 +101,72 @@ export function Header({ onTabChange }: HeaderProps) {
 
   return (
     <motion.header
-      className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4"
+      className="w-full h-[var(--nav-height)] bg-[var(--color-bg)] border-b border-[var(--color-border)] px-[var(--space-24)] flex flex-col justify-center shadow-sm"
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div className="flex items-center justify-between w-full gap-[var(--space-24)]">
         {/* Title and Search */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4 flex-1">
+        <div className="flex items-center gap-[var(--space-24)] min-w-0 flex-1">
           <motion.h1
-            className="text-2xl font-bold text-gray-900 dark:text-white"
+            className="text-[var(--fs-20)] font-bold text-[var(--text)] tracking-tight select-none"
             whileHover={{ scale: 1.02 }}
+            style={{ lineHeight: 'var(--lh-tight)' }}
           >
             entitled
           </motion.h1>
-          
-          <div className="flex-1 max-w-md">
+          <div className="flex-1 max-w-[420px]">
             <Input
               placeholder="Search property or person"
-              leftIcon={<Search className="h-4 w-4" />}
+              leftIcon={<Search className="h-4 w-4 text-[var(--color-muted-500)]" />}
               variant="search"
+              className="h-9 px-[var(--space-12)] text-[var(--fs-14)] border border-[var(--color-border)] rounded-[var(--radius-sm)] focus:ring-2 focus:ring-[var(--color-primary)]"
             />
           </div>
         </div>
-
         {/* Action Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-[var(--space-8)]">
           <Button
             variant="ghost"
             size="sm"
             onClick={handleHighlight}
             aria-label="Highlight property"
-            className="p-2 hover:bg-yellow-50 hover:text-yellow-600 dark:hover:bg-yellow-900/20 dark:hover:text-yellow-400"
+            className="p-2 hover:bg-[rgba(219,184,131,0.12)] hover:text-[var(--color-warn)] focus:ring-2 focus:ring-[var(--color-warn)]"
             title="Highlight property"
           >
             <Highlighter className="h-4 w-4" />
           </Button>
-          
           <Button
             variant="ghost"
             size="sm"
             onClick={handleAudit}
             aria-label="Audit property"
-            className="p-2 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-900/20 dark:hover:text-blue-400"
+            className="p-2 hover:bg-[rgba(56,124,232,0.12)] hover:text-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]"
             title="Audit property"
           >
             <Users className="h-4 w-4" />
           </Button>
-          
           <Button
             variant="ghost"
             size="sm"
             onClick={handleRefresh}
             aria-label="Refresh data"
-            className="p-2 hover:bg-green-50 hover:text-green-600 dark:hover:bg-green-900/20 dark:hover:text-green-400"
+            className="p-2 hover:bg-[rgba(26,187,123,0.12)] hover:text-[var(--color-success)] focus:ring-2 focus:ring-[var(--color-success)]"
             title="Refresh data"
           >
             <RefreshCw className="h-4 w-4" />
           </Button>
-          
           <Button
             variant="ghost"
             size="sm"
             onClick={handleFullScreen}
             aria-label="Toggle full screen"
-            className="p-2 hover:bg-purple-50 hover:text-purple-600 dark:hover:bg-purple-900/20 dark:hover:text-purple-400"
+            className="p-2 hover:bg-[rgba(99,136,214,0.12)] hover:text-[var(--color-primary-500)] focus:ring-2 focus:ring-[var(--color-primary-500)]"
             title="Toggle full screen"
           >
             <Maximize2 className="h-4 w-4" />
           </Button>
-
           {/* Theme Toggle */}
           <Button
             variant="ghost"
@@ -184,9 +180,8 @@ export function Header({ onTabChange }: HeaderProps) {
           </Button>
         </div>
       </div>
-
       {/* Tabs */}
-      <div className="flex items-center gap-2 mt-4 overflow-x-auto scrollbar-hide">
+      <div className="flex items-center gap-[var(--space-8)] mt-[var(--space-16)] overflow-x-auto scrollbar-hide">
         {tabs.map((tab) => (
           <motion.div
             key={tab.id}
@@ -198,15 +193,16 @@ export function Header({ onTabChange }: HeaderProps) {
             <motion.button
               onClick={() => handleTabClick(tab.id)}
               className={`
-                relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
-                flex items-center gap-2 pr-8
+                relative px-[var(--space-16)] py-[var(--space-8)] rounded-[var(--radius-md)] text-[var(--fs-14)] font-medium transition-all duration-200
+                flex items-center gap-[var(--space-8)] pr-8
                 ${tab.id === activeTab
-                  ? 'bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-300 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
+                  ? 'text-[var(--color-primary)] bg-[rgba(56,124,232,0.08)] shadow-sm border-b-2 border-[var(--color-primary)]'
+                  : 'text-[var(--color-muted-600)] hover:text-[var(--color-primary)] hover:bg-[var(--color-surface-2)]'
                 }
               `}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              style={tab.id === activeTab ? { borderBottomWidth: 2 } : {}}
             >
               {tab.icon && <span className="text-base">{tab.icon}</span>}
               <span>{tab.label}</span>
@@ -220,7 +216,6 @@ export function Header({ onTabChange }: HeaderProps) {
                 </Badge>
               )}
             </motion.button>
-            
             {/* Close Button */}
             {tab.isClosable && (
               <motion.button
@@ -228,8 +223,8 @@ export function Header({ onTabChange }: HeaderProps) {
                 className={`
                   absolute right-1 top-1/2 -translate-y-1/2
                   w-5 h-5 rounded-full flex items-center justify-center
-                  text-gray-400 hover:text-gray-600 dark:hover:text-gray-300
-                  hover:bg-gray-200 dark:hover:bg-gray-600
+                  text-[var(--color-muted-500)] hover:text-[var(--color-primary)]
+                  hover:bg-[var(--color-surface-2)]
                   opacity-0 group-hover:opacity-100 transition-opacity duration-200
                   ${tab.id === activeTab ? 'opacity-100' : ''}
                 `}
@@ -241,12 +236,11 @@ export function Header({ onTabChange }: HeaderProps) {
             )}
           </motion.div>
         ))}
-        
         <Button
           variant="ghost"
           size="sm"
           onClick={addNewTab}
-          className="p-2 min-w-0 hover:bg-green-50 hover:text-green-600 dark:hover:bg-green-900/20 dark:hover:text-green-400"
+          className="p-2 min-w-0 hover:bg-[rgba(26,187,123,0.12)] hover:text-[var(--color-success)]"
           aria-label="Add new tab"
           title="Add new property tab"
         >
